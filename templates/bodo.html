@@ -1,0 +1,93 @@
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- jQuery를 사용하기 위한 CDN을 추가합니다. -->
+    
+    <script>
+        $(document).ready(function(){
+            $('form').submit(function(e){
+                e.preventDefault();
+                console.log("Form submitted");
+                
+                $.post('/button_clicked', $(this).serialize(), function(data){
+                    console.log("Received data:", data);
+                    $('#answer1').val(data.result1);
+                    $('#answer2').val(data.result2);
+                    $('#answer3').val(data.result3);
+                });
+            });
+        });
+    </script>
+</head>
+
+<p><input name="type_btn1" type="button" value="사업안내" />&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input name="type_btn2" type="button" value="행사안내" />&nbsp; &nbsp; &nbsp;<input name="type_btn3" type="button" value="생활정보" />&nbsp; &nbsp; &nbsp;&nbsp;<input name="type_btn4" type="button" value="성과정보" /></p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+	<tbody>
+        	<form action="{{ url_for('button_clicked') }}" method="post">
+			<button type="submit">Click me</button>
+        
+		
+			<td>
+			<p>&nbsp;</p>
+
+			<p>1&nbsp; &nbsp;&nbsp;<textarea id="ask_box1" rows = "5" cols = "50" name="ask_box1"></textarea></p>
+
+			<p>&nbsp;</p>
+
+			<p>2&nbsp; &nbsp;&nbsp;<textarea id="ask_box2" rows = "5" cols = "50" name="ask_box2"></textarea></p>
+
+			<p>&nbsp;</p>
+
+			<p>3&nbsp; &nbsp;&nbsp;<textarea id="ask_box3" rows = "5" cols = "50" name="ask_box3"></textarea></p>
+
+			<p>&nbsp;</p>
+
+			<p>4&nbsp; &nbsp;&nbsp;<textarea id="ask_box4" rows = "5" cols = "50" name="ask_box4"></textarea></p>
+
+			<p>&nbsp;</p>
+			</td>
+		
+			</form>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p>a1<textarea id="answer1" rows = "5" cols = "50" name="answer1"></textarea>&nbsp;</p>
+
+<p>a2<textarea id="answer2" rows = "5" cols = "50" name="answer2"></textarea></p>
+
+<p>a3<textarea id="answer3" rows = "5" cols = "50" name="answer3"></textarea></p>
+
+<html>
+	{% extends "base.html" %}
+	{% block content %}
+	{% if session['logged_in'] %}
+		{% if data %}
+			<h3>{{ data }}</h3>
+		{% else %}
+		<center><div>
+			<a href="/logout">Logout</a><br><br>
+			<form action="" method="POST">
+
+			</form>
+		</div></center>
+		{% endif %}
+
+	{% else %}
+	<center><div>
+		<p>로그인하지 않은 상태입니다. </p>
+		<p>서비스를 이용하려면 로그인해주세요.</p>
+		<a href="/login">Login</a> 
+		<a href="/register">Register</a>
+	</div></center>
+	{% endif %}
+	{% endblock %}
+</html>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>

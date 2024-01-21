@@ -1,35 +1,27 @@
-<head>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+	{% extends "base.html" %}
+	{% block content %}
+	{% if session['logged_in'] %}
+		{% if data %}
+			<h3>{{ data }}</h3>
+		{% else %}
+		<center><div>
+			<a href="/logout">Logout</a><br><br>
+			<form action="" method="POST">
 
-<p><input name="type_btn1" type="button" value="사업안내" />&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input name="type_btn2" type="button" value="행사안내" />&nbsp; &nbsp; &nbsp;<input name="type_btn3" type="button" value="생활정보" />&nbsp; &nbsp; &nbsp;&nbsp;<input name="type_btn4" type="button" value="성과정보" /></p>
+			</form>
+		</div></center>
+		{% endif %}
 
-<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
-	<tbody>
-		<tr>
-			<td>
-			<p>&nbsp;</p>
-
-			<p>1&nbsp; &nbsp;&nbsp;<textarea cols="1" name="ask_box1"></textarea></p>
-
-			<p>&nbsp;</p>
-
-			<p>2&nbsp; &nbsp;&nbsp;<textarea cols="1" name="ask_boc2"></textarea></p>
-
-			<p>&nbsp;</p>
-
-			<p>3&nbsp; &nbsp;&nbsp;<textarea cols="1" name="asl_box3"></textarea></p>
-
-			<p>&nbsp;</p>
-
-			<p>4&nbsp; &nbsp;&nbsp;<textarea cols="1" name="ask_box4"></textarea></p>
-			</td>
-		</tr>
-	</tbody>
-</table>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
+	{% else %}
+	<center><div>
+		<p>로그인하지 않은 상태입니다. </p>
+		<p>서비스를 이용하려면 로그인해주세요.</p>
+		<a href="/login">Login</a> 
+		<a href="/register">Register</a>
+	</div></center>
+	{% endif %}
+	{% endblock %}
+</html>
