@@ -15,7 +15,7 @@ def question(ask_box1, ask_box2, ask_box3, ask_box4):
         api_url = "https://api.openai.com/v1/chat/completions"
 
         # OpenAI API 키
-        api_key = "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" #챗싯계정
+        api_key = "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" #챗싯계정
         
 
         # 질문 설정
@@ -28,9 +28,9 @@ def question(ask_box1, ask_box2, ask_box3, ask_box4):
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": question},
             ],
-            "max_tokens": 20,  # 각 응답의 최대 토큰 수 설정
+            "max_tokens": 2000,  # 각 응답의 최대 토큰 수 설정
             "temperature": 0.7,  # 다양성 조절을 위한 값 설정
-            "n": 3  # 받고 싶은 답변의 수 설정 (하나의 답변만 필요)
+            "n": 1  # 받고 싶은 답변의 수 설정 (하나의 답변만 필요)
         }
 
         # API 호출 실행
@@ -44,11 +44,14 @@ def question(ask_box1, ask_box2, ask_box3, ask_box4):
         # API 응답 확인
         if response.status_code == 200:
             data = response.json()
-            answer1 = data['choices'][0]['message']['content']  # 첫 번째 답변 가져오기
-            answer2 = data['choices'][1]['message']['content']  # 첫 번째 답변 가져오기     
-            answer3 = data['choices'][2]['message']['content']  # 첫 번째 답변 가져오기
+            answer1 = data['choices'][0]['message']['content']  
+            #answer2 = data['choices'][1]['message']['content']      
+            #answer3 = data['choices'][2]['message']['content'] 
+
+            answer2 = ""
+            answer3 = ""
                   
         else:
             print(f"API 호출 실패: {response.status_code}, {response.text}")
 
-        return answer1, answer2, answer3
+        return answer1 , answer2, answer3
