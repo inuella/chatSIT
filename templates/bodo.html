@@ -2,92 +2,216 @@
     <link rel="stylesheet" href="/static/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>보도자료 작성기</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- jQuery를 사용하기 위한 CDN을 추가합니다. -->
-    
+
     <script>
-        $(document).ready(function(){
-            $('form').submit(function(e){
-                e.preventDefault();
-                console.log("Form submitted");
-                
-                $.post('/button_clicked', $(this).serialize(), function(data){
-                    console.log("Received data:", data);
-                    $('#answer1').val(data.result1);
-                    $('#answer2').val(data.result2);
-                    $('#answer3').val(data.result3);
-                });
-            });
-        });
+
+			$(document).ready(function(){
+				$('form').submit(function(e){
+					e.preventDefault();
+					console.log("Form submitted");
+					
+					$.post('/button_clicked', $(this).serialize(), function(data){
+						console.log("Received data:", data);
+						$('#answer1').val(data.result1);
+						$('#answer2').val(data.result2);
+						$('#answer3').val(data.result3);
+					});
+				});
+			});
+		
+
+        var imgs = [
+            "images/11.png",
+            "images/12.png",
+            "images/13.png",
+            "images/14.png",
+            "images/21.png",
+            "images/22.png",
+            "images/23.png",
+            "images/24.png",
+            "images/31.png",
+            "images/32.png",
+            "images/33.png",
+            "images/34.png",
+            "images/41.png",
+            "images/42.png",
+            "images/43.png",
+            "images/44.png"
+        	];
+
+			function imgChange(index) {
+            // 각 이미지의 ID를 설정하고 해당 ID를 이용하여 이미지를 가져와서 변경합니다.
+            var imgElement1 = document.getElementById("label1");
+            var imgElement2 = document.getElementById("label2");
+            var imgElement3 = document.getElementById("label3");
+            var imgElement4 = document.getElementById("label4");
+
+            // 각 이미지의 소스 속성을 변경합니다.
+            imgElement1.src = "{{ url_for('static', filename='') }}" + imgs[index];
+            imgElement2.src = "{{ url_for('static', filename='') }}" + imgs[index+1];
+            imgElement3.src = "{{ url_for('static', filename='') }}" + imgs[index+2];
+            imgElement4.src = "{{ url_for('static', filename='') }}" + imgs[index+3];
+
+			var textarea4 = document.getElementById("ask_box4");
+			var imgElement4 = document.getElementById("label4");
+			textarea4.style.display = "inline-block";
+			label4.style.display = "inline-block";
+       		};
+
+			function hide() {
+            var textarea4 = document.getElementById("ask_box4");
+
+            textarea4.style.display = "none";
+			label4.style.display = "none";
+        }
+
+			function scrolling(){
+				$('html, body').animate({
+       			 scrollTop: 1000
+   				 }, 800);
+		}
+		function showCopyPopup() {
+        alert("복사되었습니다.");
+    }
+
+		function copyToClipboard(textareaId) {
+
+   		var textarea = document.getElementById(textareaId);
+		textarea.select();
+		document.execCommand('copy');
+		window.getSelection().removeAllRanges();
+		showCopyPopup();
+		}
+
+		function copyText1() {
+			copyToClipboard('answer1');
+		}
+
+		function copyText2() {
+			copyToClipboard('answer2');
+		}
+
+		function copyText3() {
+			copyToClipboard('answer3');
+		}
     </script>
 </head>
 
-<p><input name="type_btn1" type="button" value="사업안내" />&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<input name="type_btn2" type="button" value="행사안내" />&nbsp; &nbsp; &nbsp;<input name="type_btn3" type="button" value="생활정보" />&nbsp; &nbsp; &nbsp;&nbsp;<input name="type_btn4" type="button" value="성과정보" /></p>
 
-<table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+<img style="float: right;" src="{{ url_for('static',filename='images/title.gif')}}"/>
+
+
+<p><br>&nbsp;&nbsp; <button name="type_btn1" type="button" value="사업안내" onclick="imgChange(0);" /><img src="{{ url_for('static',filename='images/type1.gif')}}"/></button>&nbsp; &nbsp;&nbsp; 
+	<button name="type_btn2" type="button" value="행사안내" onclick="imgChange(4)"/><img src="{{ url_for('static',filename='images/type2.gif')}}"/></button>&nbsp; &nbsp; &nbsp;
+	<button name="type_btn3" type="button" value="생활정보" onclick="imgChange(8); hide()"/><img src="{{ url_for('static',filename='images/type3.gif')}}"/></button>&nbsp; &nbsp; &nbsp;
+	<button name="type_btn4" type="button" value="성과정보" onclick="imgChange(12)"/><img src="{{ url_for('static',filename='images/type4.gif')}}"/></button></p>
+
+	<br><br><br>
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px; border-color:  transparent">
 	<tbody>
         	<form action="{{ url_for('button_clicked') }}" method="post">
-			<button type="submit">Click me</button>
-        
+			<p>&nbsp;</p>
+	
+			<tbody>
+					<tr> 
+					<td style=" text-align: center;" ><img id="label1" src="{{ url_for('static',filename='images/11.png')}}" style="width:150px; height: auto;"/></td>
+					<td style="width: 9.84375px;"></td>
+					<td style=" text-align: center;"><img id="label2" src="{{ url_for('static',filename='images/12.png')}}" style="width:150px; height: auto;"/></td>
+					<td style="width: 9.84375px;"></td>
+					<td style=" text-align: center;"><img id="label3" src="{{ url_for('static',filename='images/13.png')}}" style="width:150px; height: auto;"/></td>
+					<td style="width: 9.84375px;"></td>
+					<td style=" text-align: center;"><img id="label4" src="{{ url_for('static',filename='images/14.png')}}" style="width:150px; height: auto;"/></td>
+					</tr>
+					<tr>
+					<td style="width: 443.415px;"><textarea id="ask_box1" style="width: 320px; height: 250px;" cols="50" name="ask_box1" rows="5"></textarea></td>
+					<td style="width: 9.84375px;">&nbsp;&nbsp;</td>
+					<td style="width: 301.417px;"><textarea id="ask_box2" style="width: 320px; height: 250px;" cols="50" name="ask_box2" rows="5"></textarea></td>
+					<td style="width: 9.84375px;">&nbsp;&nbsp;</td>
+					<td style="width: 221.417px;"><textarea id="ask_box3" style="width: 320px; height: 250px;" cols="50" name="ask_box3" rows="5"></textarea></td>
+					<td style="width: 9.84375px;">&nbsp;&nbsp;</td>
+					<td style="width: 218.415px;"><textarea id="ask_box4" style="width: 320px; height: 250px;" cols="50" name="ask_box4" rows="5"></textarea></td>
+					</tr>
+					<tr>
+						<td style=" text-align: center;"><img src="{{ url_for('static',filename='images/seogu.gif')}}" style="float: right; width:330px; height: auto;"/></td>	
+					<td style="width: 9.84375px;">&nbsp;</td>
+					<td style="text-align: right; width: 443.415px;"></td>
+					<td style="width: 9.84375px;"></td>
+					<td style="text-align: left; width: 443.415px;"><button type="submit" onclick="scrolling()" /><img src="{{ url_for('static',filename='images/convert.gif')}}"  /></button></td>			
+					<td style="width: 9.84375px;">&nbsp;</td>
+					<td style="width: 9.84375px;">&nbsp;</td>
 		
-			<td>
-			<p>&nbsp;</p>
+					</tr>
+			</tbody>
+			</table>
+			<br>
 
-			<p>1&nbsp; &nbsp;&nbsp;<textarea id="ask_box1" rows = "5" cols = "50" name="ask_box1"></textarea></p>
 
-			<p>&nbsp;</p>
+<table style="height: 301px;" width="1335">
+    <tbody>
+    <tr>
+    <td style="width: 250px; text-align: center;"><img src="{{ url_for('static',filename='images/num1.gif')}}"/></td>
+    <td style="width: 115px;">&nbsp;</td>
+    <td style="width: 250px; text-align: center;"><img src="{{ url_for('static',filename='images/num2.gif')}}"/></td>
+    <td style="width: 115px;">&nbsp;</td>
+    <td style="width: 250px; text-align: center;"><img src="{{ url_for('static',filename='images/num3.gif')}}"/></td>
+    </tr>
+    <tr>
+    <td style="width: 250px;"><textarea id="answer1" style="width: 400px; height: 400px;" cols="50" name="answer1" rows="15"></textarea></td>
+    <td style="width: 115px;"></td>
+    <td style="width: 250px;"><textarea id="answer2" style="width: 400px; height: 400px;" cols="50" name="answer2" rows="15"></textarea></td>
+    <td style="width: 115px;"></td>
+    <td style="width: 250px;"><textarea id="answer3" style="width: 400px; height: 400px;" cols="50" name="answer3" rows="15"></textarea></td>
+    </tr>
+	<tr>
+    <td style="width: 250px; text-align: center;"><button name="copy1" type="button" value="copy1"/><img src="{{ url_for('static',filename='images/copy.gif')}}" style="width:150px; height: auto;" onclick="copyText1()"/></button></td>
+    <td style="width: 115px;">&nbsp;</td>
+	<td style="width: 250px; text-align: center;"><button name="copy2" type="button" value="copy2"/><img src="{{ url_for('static',filename='images/copy.gif')}}" style="width:150px; height: auto;" onclick="copyText2()"/></button></td>
+    <td style="width: 115px;">&nbsp;</td>
+	<td style="width: 250px; text-align: center;"><button name="copy3" type="button" value="copy3"/><img src="{{ url_for('static',filename='images/copy.gif')}}" style="width:150px; height: auto;" onclick="copyText3()"/></button></td>
+    </tr>
+    </tbody>
 
-			<p>2&nbsp; &nbsp;&nbsp;<textarea id="ask_box2" rows = "5" cols = "50" name="ask_box2"></textarea></p>
-
-			<p>&nbsp;</p>
-
-			<p>3&nbsp; &nbsp;&nbsp;<textarea id="ask_box3" rows = "5" cols = "50" name="ask_box3"></textarea></p>
-
-			<p>&nbsp;</p>
-
-			<p>4&nbsp; &nbsp;&nbsp;<textarea id="ask_box4" rows = "5" cols = "50" name="ask_box4"></textarea></p>
-
-			<p>&nbsp;</p>
-			</td>
-		
-			</form>
-	</tbody>
 </table>
 
-<p>&nbsp;</p>
-
-<p>a1<textarea id="answer1" rows = "5" cols = "50" name="answer1"></textarea>&nbsp;</p>
-
-<p>a2<textarea id="answer2" rows = "5" cols = "50" name="answer2"></textarea></p>
-
-<p>a3<textarea id="answer3" rows = "5" cols = "50" name="answer3"></textarea></p>
-
 <html>
-	{% extends "base.html" %}
 	{% block content %}
 	{% if session['logged_in'] %}
 		{% if data %}
 			<h3>{{ data }}</h3>
 		{% else %}
 		<center><div>
-			<a href="/logout">Logout</a><br><br>
-			<form action="" method="POST">
+			<br>
 
-			</form>
+			<table style="height: 1px;" width="1335">
+			<tbody>
+			<tr>
+			<td style="width: 700px;">&nbsp;</td>
+			<td style="width: 290px; text-align: center;"><a href="/logout">로그아웃</a><form action="" method="POST"></form></td>
+			<td style="width: 115px;">&nbsp;</td>
+				
+			<td style="width: 250px;"><img src="{{ url_for('static',filename='images/warning.gif')}}" style="width:450px; height: auto;"/></td>
+			
+			</tr>
+			</tbody>	
+
 		</div></center>
 		{% endif %}
 
 	{% else %}
 	<center><div>
+		<p>&nbsp;</p>
+
+		<p>&nbsp;</p>
 		<p>로그인하지 않은 상태입니다. </p>
 		<p>서비스를 이용하려면 로그인해주세요.</p>
-		<a href="/login">Login</a> 
-		<a href="/register">Register</a>
+		<a href="/login">로그인</a> 
+		
 	</div></center>
 	{% endif %}
 	{% endblock %}
 </html>
 <p>&nbsp;</p>
 
-<p>&nbsp;</p>

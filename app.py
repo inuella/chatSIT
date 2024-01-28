@@ -1,11 +1,23 @@
 from flask import Flask, url_for, render_template, jsonify
-from flask import request, redirect, session
+from flask import request, redirect, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from gpt4 import question
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\test\\test.db'
 db = SQLAlchemy(app)
+
+def allow_specific_ip_pattern(func):
+    def wrapper(*args, **kwargs):
+        remote_ip = request.remote_addr
+
+        # '192'로 시작하는 아이피만을 허용
+        if not remote_ip.startswith('172'):
+            return "서구청 내부망에서 이용해주세요."
+
+        return func(*args, **kwargs)
+
+    return wrapper
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -16,14 +28,19 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), unique=True)
 	password = db.Column(db.String(80))
-	email = db.Column(db.String(80), unique=True)
+	count = db.Column(db.String(80))
 
-	def __init__(self, username, password, email):
+	def __init__(self, username, password, count):
 		self.username = username
 		self.password = password
-		self.email = email
+		self.count = count
+
+
+
+
 
 @app.route('/', methods=['GET', 'POST'])
+
 def home():
 	if not session.get('logged_in'):
 		return render_template('index.html')
@@ -62,7 +79,8 @@ def login():
 				return 'Dont Login'
 		except:
 			return "Dont Login"
-
+		
+'''
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
 	"""Register Form"""
@@ -74,6 +92,7 @@ def register():
 		db.session.commit()
 		return render_template('login.html')
 	return render_template('register.html')
+'''
 
 @app.route("/logout")
 def logout():
