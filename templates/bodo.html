@@ -5,7 +5,7 @@
     <title>보도자료 작성기</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- jQuery를 사용하기 위한 CDN을 추가합니다. -->
-
+ 
     <script>
 
 			$(document).ready(function(){
@@ -113,6 +113,7 @@
 <table border="1" cellpadding="1" cellspacing="1" style="width:500px; border-color:  transparent">
 	<tbody>
         	<form action="{{ url_for('button_clicked') }}" method="post">
+			
 			<p>&nbsp;</p>
 	
 			<tbody>
@@ -139,19 +140,24 @@
 					<td style="width: 9.84375px;">&nbsp;</td>
 					<td style="text-align: right; width: 443.415px;"></td>
 					<td style="width: 9.84375px;"></td>
-					<td style="text-align: left; width: 443.415px;"><button type="submit" onclick="scrolling()" /><img src="{{ url_for('static',filename='images/convert.gif')}}"  /></button></td>			
+					<td style="text-align: left; width: 443.415px;"><button type="submit" value="button2"onclick="scrolling()" /><img src="{{ url_for('static',filename='images/convert.gif')}}"  /></button></td>			
 					<td style="width: 9.84375px;">&nbsp;</td>
 					<td style="width: 9.84375px;">&nbsp;</td>
-		
+					
+					</form>
 					</tr>
+
+					
+
+					
 			</tbody>
 			</table>
 			<br>
 
-
+<form action="{{ url_for('make_hwp') }}" method="post">
 <table style="height: 301px;" width="1335">
     <tbody>
-    <tr>
+    <tr><button type="submit" value="button1">Generdddddddddddddddddddddddddddddddddate HWP</button></form>
     <td style="width: 250px; text-align: center;"><img src="{{ url_for('static',filename='images/num1.gif')}}"/></td>
     <td style="width: 115px;">&nbsp;</td>
     <td style="width: 250px; text-align: center;"><img src="{{ url_for('static',filename='images/num2.gif')}}"/></td>
@@ -173,6 +179,8 @@
 	<td style="width: 250px; text-align: center;"><button name="copy3" type="button" value="copy3"/><img src="{{ url_for('static',filename='images/copy.gif')}}" style="width:150px; height: auto;" onclick="copyText3()"/></button></td>
     </tr>
     </tbody>
+
+
 
 </table>
 

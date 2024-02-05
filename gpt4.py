@@ -9,13 +9,13 @@ def question(ask_box1, ask_box2, ask_box3, ask_box4):
         ask = ("당신은 20년차 베테랑 신문기자입니다. 대전 서구를 위해 기사를 작성중입니다. 다음 내용을 아래의 조건에 맞추어 제목과 신문기사를 작성해주세요.  "
         + ask_box1 + " " + ask_box2 + " "  + ask_box3 + " "  + ask_box4 \
         + " 조건1: 다음 [예시문]의 글 형식과 말투를 분석한 후에 동일한 스타일로 써주세요.    + [예시문] 대전 서구(구청장 서철모) 월평1동 적십자봉사회(회장 김광일)는 관내 저소득층 50세대에 추석맞이 생필품 꾸러미 나눔 활동을 펼쳤다고 17일 밝혔다."\
-        + dangbu + " 조건3: 제목은 2개인데 하나는 간결한 주 제목을 다른 하나는 조금 더 상세한 소 제목으로 작성해줘")
+        + dangbu + " 조건3: 제목은 2개인데 하나는 간결한 주 제목을 다른 하나는 조금 더 상세한 소 제목으로 작성해줘, 그리고 서철모를 지칭할때 항상 서철모 청장이라고 해줘")
 
         # ChatGPT API 엔드포인트 URL
         api_url = "https://api.openai.com/v1/chat/completions"
 
         # OpenAI API 키
-        api_key = "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" #챗싯계정
+        api_key = "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" #챗싯계정
         
 
         # 질문 설정
@@ -25,7 +25,7 @@ def question(ask_box1, ask_box2, ask_box3, ask_box4):
         payload = {
             "model": "gpt-4",
             "messages": [
-                {"role": "system", "content": "You are a helpful assistant."},
+                #{"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": question},
             ],
             "max_tokens": 2000,  # 각 응답의 최대 토큰 수 설정
